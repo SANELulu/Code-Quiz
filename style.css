@@ -12,6 +12,9 @@ body{
     margin: 10px;
 
 }
-.col-6{
+.container{
     background-color:rgb(161, 245, 227)
+}
+.hide{
+    display: none;
 }
