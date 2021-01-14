@@ -1,7 +1,17 @@
 li {
     background-color: #7f9cfd;
-    color:blanchedalmond;
+    
 }
 body{
-    background-color: #ffffff;
+    background-color: #666666;
+    
+}
+
+.btn{
+    background-color: aliceblue;
+    margin: 10px;
+
+}
+.col-6{
+    background-color:rgb(161, 245, 227)
 }
