@@ -5,17 +5,22 @@ var buttonA = document.getElementById("btnA");
 var buttonB = document.getElementById("btnB");
 var buttonC = document.getElementById("btnC");
 var buttonD = document.getElementById("btnD");
-var button = document.querySelector(".btn") // alert only shows up on first button 
+var buttons = document.querySelector("#buttons");
+// var buttons = document.querySelector(".btn") // alert only shows up on first button 
 var questionContainer = document.getElementById("question-container");
 var nextButton = document.getElementById('next-btn')
 var questionCounter = 0
 //SCORE VARIABLE 
 var score = document.querySelector("#score");
-var score = 0 
+var points = 0 
+// ANSWER VARIABLES 
+var right = true //trying this out to see if this works 
+var wrong = false //nope nvm didnt work 
 //EVENT LISTENERS 
 startButton.addEventListener("click", startQuiz);
 nextButton.addEventListener("click", nextQuestion);
-button.addEventListener("click", chosenAnswer);
+buttons.addEventListener("click", chosenAnswer);
+
 // button.addEventListener("click", function(){ // alert only shows up on first button
 //     alert("wow");
 // })
@@ -30,15 +35,14 @@ function startQuiz(){
     buttonB.textContent = (questionList[questionCounter].answers[1].text)
     buttonC.textContent = (questionList[questionCounter].answers[2].text)
     buttonD.textContent = (questionList[questionCounter].answers[3].text)
+    buttonD.classList.add("correct");
     questionCounter++;
-    console.log(questionCounter);
     // btn[0].textContent = questions[i].answers[0];
     // btn[1].textContent = questions[i].answers[1];
     // btn[2].textContent = questions[i].answers[2];
     // btn[3].textContent = questions[i].answers[3];
 }
 function nextQuestion(){
-    
     displayQuestion.innerHTML = questionList[questionCounter].question
     // buttonA.append(questionList[x].answers[0].text)
     // buttonB.append(questionList[x].answers[1].text)
@@ -48,28 +52,31 @@ function nextQuestion(){
     buttonB.textContent = (questionList[questionCounter].answers[1].text)
     buttonC.textContent = (questionList[questionCounter].answers[2].text)
     buttonD.textContent = (questionList[questionCounter].answers[3].text)
+    buttonD.classList.remove("correct");
     questionCounter++;
 }
-
-function chosenAnswer(){
-    alert("you chose");
-    questionCounter++;
+function chosenAnswer(element){ // this is what i need help with.  
+    //it works with the score but there will be an issue once you need to go to the next question. 
+    //The right answer will always be D. 
+    selectedButton = element.target;
+    
+    if(selectedButton.classList.contains("correct")){
+        points++
+        score.innerHTML = points;
+        console.log(points);
     }
-
-// hero.hasOwnProperty('name');
-
-
+    }
+    
 
 //Questions
 var questionList = [
-
 {
     question: 'Question 1',
     answers: [
-        { text: "answer 1", correct: false },
-        { text: "answer 2", correct: false },
-        { text: "answer 3", correct: false },
-        { text: "correct answer", correct: true }
+        { text: "answer 1", wrong },
+        { text: "answer 2", wrong },
+        { text: "answer 3", wrong },
+        { text: "correct answer", right }
     ]
   },
   {
