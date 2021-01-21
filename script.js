@@ -7,22 +7,35 @@ var buttonC = document.getElementById("btnC");
 var buttonD = document.getElementById("btnD");
 var buttons = document.querySelector("#buttons");
 var options = Array.from(document.getElementsByClassName("buttons"))
-// var buttons = document.querySelector(".btn") // alert only shows up on first button 
 var questionContainer = document.getElementById("question-container");
-var nextButton = document.getElementById('next-btn')
-var questionCounter = 0
-//SCORE VARIABLE 
+var nextButton = document.getElementById('next-btn');
+var questionCounter = 0;
+// SCORE VARIABLE 
 var score = document.querySelector("#score");
 var points = 0 
-// ANSWER VARIABLES 
+score.textContent = points
 
-// var right = true //trying this out to see if this works 
-// var wrong = false //nope nvm didnt work 
+
+// TIMER VARIABLES
+var startingTime= 1
+var time = startingTime * 60
+var countdownEl = document.getElementById("countdown");
+// TIMER FUNCTION
+function timerCountdown(){
+
+}
+// LOCAL STORAGE
+// localStorage.setItem('score', 'Name');
+// var points = localStorage.getItem('score');
 
 //EVENT LISTENERS 
 startButton.addEventListener("click", startQuiz);
 nextButton.addEventListener("click", nextQuestion);
-document.addEventListener("click", chosenAnswer);
+
+for (let i = 0; i < options.length; i++) {
+    options[i].addEventListener("click", checkAnswer);
+    
+}
 
 // button.addEventListener("click", function(){ // alert only shows up on first button
 //     alert();
@@ -35,71 +48,48 @@ function startQuiz(){
     nextButton.classList.remove("hide");
     
     displayQuestion.innerHTML = (questionList[questionCounter].question)
-    options[0].textContent = (questionList[questionCounter].answers[0].text)
-    // options[0].setProperty(questionList[questionCounter].answers,correct);
-    // options[0].setAttribute(questionList[questionCounter].answers.correct) this doesnt work either!!!
-    options[1].textContent = (questionList[questionCounter].answers[1].text)
-
-    options[2].textContent = (questionList[questionCounter].answers[2].text)
-
-    options[3].textContent = (questionList[questionCounter].answers[3].text)
-
-    // buttonA.textContent = (questionList[questionCounter].answers[0].text)
-    // buttonB.textContent = (questionList[questionCounter].answers[1].text) replaced with chosenbutton[]
-    // buttonC.textContent = (questionList[questionCounter].answers[2].text)
-    // buttonD.textContent = (questionList[questionCounter].answers[3].text)
-
-    // buttonD.classList.add("correct");
-
-    questionCounter++;
-    // btn[0].textContent = questions[i].answers[0];
-    // btn[1].textContent = questions[i].answers[1]; doesnt work
-    // btn[2].textContent = questions[i].answers[2];
-    // btn[3].textContent = questions[i].answers[3];
+    for (let i = 0; i < options.length; i++) {
+        options[i].textContent = (questionList[questionCounter].answers[i].text)
+    options[i].setAttribute("data-correct", questionList[questionCounter].answers[i].correct )
+    }
 }
+
 function nextQuestion(){
     displayQuestion.innerHTML = questionList[questionCounter].question
-    // buttonA.append(questionList[x].answers[0].text)
-    // buttonB.append(questionList[x].answers[1].text) append keeps adding it on top after each question.
-    // buttonC.append(questionList[x].answers[2].text) Not practical. 
-    // buttonD.append(questionList[x].answers[3].text)
-    buttonA.textContent = (questionList[questionCounter].answers[0].text)
-    buttonB.textContent = (questionList[questionCounter].answers[1].text)
-    buttonC.textContent = (questionList[questionCounter].answers[2].text)
-    buttonD.textContent = (questionList[questionCounter].answers[3].text)
-    buttonD.classList.remove("correct");
-    questionCounter++;
+    for (let i = 0; i < options.length; i++) {
+        options[i].textContent = (questionList[questionCounter].answers[i].text)
+    options[i].setAttribute("data-correct", questionList[questionCounter].answers[i].correct )
+    }
 }
 
 
-function chosenAnswer(event){
-    if(event.target.classList.contains("buttons")){
-       console.log(event.target);
-       }
-    }
 function checkAnswer(event){
-    
-   if(event.target.hasOwnProperty(correct)){
-       alert()
+    console.log(questionCounter);
+    questionCounter++;
+    var isCorrect = (event.target.getAttribute("data-correct"))
+   if( isCorrect === "true"){ 
+    points++
+    score.textContent = points;
    }
+   else{
+       wrongAnswer();
+   }
+   if(questionCounter > 3){
+       alert("quiz over!")
+    quizOver();
+    }
+   nextQuestion();
 }
        
-    
+   function wrongAnswer(){
+       
+   }
 
+   function quizOver(){
 
-// function chosenAnswer(event){ // this is what i need help with.  
-//     //it works with the score but there will be an issue once you need to go to the next question. 
-//     //The right answer will always be D. 
-//     //how can i use the correct:true and correct:false in the argument? 
-//     selectedButton = event.target;
-//     console.log(selectedButton);
-//     // if(selectedButton.classList.contains("correct")){
-//     //     points++
-//     //     score.innerHTML = points;
-//     //     console.log(points);
-//     // }
-//     }
-    
+    location.href = "./leaderboard.html";
+   }
+
 
 //Questions
 var questionList = [
@@ -109,7 +99,7 @@ var questionList = [
         { text: "answer 1", correct: false },
         { text: "answer 2", correct: false },
         { text: "answer 3", correct: false },
-        { text: "correct answer", correct: true }
+        { text: "answer 4", correct: true }
     ]
   },
   {
@@ -118,7 +108,7 @@ var questionList = [
         { text: "answer 11", correct: false },
         { text: "answer 22", correct: false },
         { text: "answer 33", correct: false },
-        { text: "correct answer", correct: true }
+        { text: "answer 44", correct: true }
     ]
   },
   {
@@ -127,7 +117,7 @@ var questionList = [
         { text: "answer 111", correct: false },
         { text: "answer 222", correct: false },
         { text: "answer 333", correct: false },
-        { text: "correct answer", correct: true }
+        { text: "answer 444", correct: true }
     ]
   },
   {
@@ -136,27 +126,11 @@ var questionList = [
         { text: "answer 1111", correct : false },
         { text: "answer 2222", correct : false },
         { text: "answer 3333", correct : false },
-        { text: "correct answer", correct : true }
+        { text: "answer 4444", correct : true }
     ]
   },
 ]
 
 
 
-
-
-
-
-
-
-
-// question counter starts at  0 
-// html questionText class 
-// set questionText set to question counter 
-// var questions = [{}] text and answers
-// set the questiontext = questions[questionCounter].text
-
-// .onClick for answers
-// you check for correctness 
-// questionCounter++
 
