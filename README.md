@@ -9,3 +9,4 @@ If the incorrect answer is selected, time is subtracted.
 
 Upon the quiz ending, a highscore is generated and the leadeboard is shown . 
 
+https://sanelulu.github.io/Code-Quiz/

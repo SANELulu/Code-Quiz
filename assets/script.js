@@ -53,6 +53,7 @@ function checkAnswer(event){
    }
    else{
        wrongAnswer();
+       
    }
    if(questionCounter > 3){
         quizOver();
@@ -69,21 +70,6 @@ function checkAnswer(event){
     
    }
 
-
-
-
-//    function saveHighScore(){
-//     var storedHighscores = JSON.parse(localStorage.getItem('highscoreList'))
-//     var newScore = {
-//             initials: initialsInput.value,
-//             score: points,
-//         };
-//         // console.log(newScore);
-//         highscore.push(newScore);
-//         localStorage.setItem("highscoreList", JSON.stringify(highscore));
-//         console.log(storedHighscores);
-//         // initialsInput.text = initialsResult.value
-//     }
    
 function saveHighscore(){
     var highscore =[]
@@ -96,9 +82,6 @@ function saveHighscore(){
     localStorage.setItem("highscoreList", JSON.stringify(highscore));
     initialsResult.textContent = storedHighscores;
     console.log(storedHighscores);
-
-
-    
 }
 
 
